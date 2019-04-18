@@ -43,7 +43,6 @@ html, body, #app {
 }
 .view {
     height: 100%;
-    border: 1px solid #999;
     padding: 10px;
 }
 .view .unit {
