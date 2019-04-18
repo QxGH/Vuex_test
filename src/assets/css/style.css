@@ -1,0 +1,61 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html, body, #app {
+    height: 100%;
+    background: #fff;
+    font-size: 14px;
+    font-family: "微软雅黑, Microsoft YaHei";
+    color: #333;
+}
+#app {
+    position: relative;
+}
+.home {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 600px;
+    width: 840px;
+    /* background-image: url("../img/mobile_bg.png"); */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 35px 71px 35px 73px;
+}
+.main {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    padding-top: 12px;
+}
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+.view {
+    height: 100%;
+    border: 1px solid #999;
+    padding: 20px;
+}
+.view .unit {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.tips {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #eee;
+    width: 100px;
+    height: 80px;
+}
