@@ -7,7 +7,7 @@ html, body, #app {
     height: 100%;
     background: #fff;
     font-size: 14px;
-    font-family: "微软雅黑, Microsoft YaHei";
+    font-family: "微软雅黑", "Microsoft YaHei";
     color: #333;
 }
 #app {
@@ -20,7 +20,7 @@ html, body, #app {
     transform: translate(-50%,-50%);
     height: 600px;
     width: 840px;
-    /* background-image: url("../img/mobile_bg.png"); */
+    background-image: url("../img/mobile_bg.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     padding: 35px 71px 35px 73px;

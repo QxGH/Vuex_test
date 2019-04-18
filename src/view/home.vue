@@ -11,7 +11,7 @@
 						<div v-for="(tipsItem, tipsIndex) in item.tips" v-show="show_tips_index == tipsIndex">{{tipsItem}}</div>
 					</myTips>
 					<div class="content">
-						<h2 class="title">{{item.title}}</h2>
+						<h2 class="title">{{currterPage+1}}. {{item.title}}</h2>
 						<div v-html="item.content"></div>
 					</div>
 				</div>
@@ -63,7 +63,7 @@ export default {
 		jump(e) {	// 点击事件
 			// var self = this;
 			let pageX = e.pageX;	// 鼠标指针在X轴的位置
-			let left = this.$refs.home.offsetLeft - 840/2 + 73; 	// view界面距离浏览器左侧距离
+			let left = this.$refs.home.offsetLeft - 840/2 + 73; 	// view界面距离浏览器左侧距离; .home width:840px;padding-left:73px;
 			let flag = this.$refs.view.offsetWidth / 2;				// view界面中心分割线位置
 			if(pageX - left >= flag && this.currterPage < this.pageData.length-1) {	// 判断点击的是左侧还是右侧，并且 currterPage 大于1小于 pageData.length 时才执行
 				this.currterPageNext();		//点击右侧，currterPage + 1
