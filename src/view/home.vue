@@ -3,15 +3,16 @@
 		<div class="main">
 			<!-- 进度条组件 -->
 			<myProgress></myProgress>
-			<div class="view" ref="view" @click="jump">
+			<div class="view" ref="view" @click="toggle($event)">
 				<!-- 容器 -->
 				<div class="unit" v-for="(item, index) in pageData" v-show="index == currterPage">
 					<!-- Tips组件 -->
 					<myTips>
 						<div v-for="(tipsItem, tipsIndex) in item.tips" v-show="show_tips_index == tipsIndex">{{tipsItem}}</div>
 					</myTips>
+					<!-- 内容 -->
 					<div class="content">
-						<h2 class="title">{{currterPage+1}}. {{item.title}}</h2>
+						<h2 class="title">{{currterPage | indexFilter}}. {{item.title}}</h2>
 						<div v-html="item.content"></div>
 					</div>
 				</div>
@@ -48,7 +49,7 @@ export default {
 			this.CURRTER_PAGE_UPDATA(val);
 		},
 		currterPageNext() {	// 下一页
-			var tips_length = this.pageData[this.currterPage].tips.length;	// 获取当前 tips 数量
+			let tips_length = this.pageData[this.currterPage].tips.length;	// 获取当前 tips 数量
 			if(this.show_tips_index < tips_length-1) {	// 如果还有 tips 则显示下一个 tips
 				this.show_tips_index++;
 			} else {									// 如果后续没有 tips 则显示下一页 并重置 tips_index
@@ -60,8 +61,8 @@ export default {
 			this.CURRTER_PAGE_REDUCE();
 			this.show_tips_index = 0;	// 重置 tips_index
 		},
-		jump(e) {	// 点击事件
-			// var self = this;
+		toggle(e) {	// 点击事件
+			// const self = this;
 			let pageX = e.pageX;	// 鼠标指针在X轴的位置
 			let left = this.$refs.home.offsetLeft - 840/2 + 73; 	// view界面距离浏览器左侧距离; .home width:840px;padding-left:73px;
 			let flag = this.$refs.view.offsetWidth / 2;				// view界面中心分割线位置
@@ -81,11 +82,17 @@ export default {
 		myTips
   	},
 	computed: {	// 计算属性,类似于 methods，定义一些方法，完成各种数据运算并缓存，只要其中任意数据变化，则重新执行运算
-		...mapState(['currterPage', 'pageData'])	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到当前实例的 data，在页面里可以直接使用 {{currterPage}}。
+		...mapState(['currterPage', 'pageData']),	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到当前实例的 data，在页面里可以直接使用 {{currterPage}}。
+		// ...mapGetters(['onlyOneTip'])				// mapGetters 是 Vuex getters 的辅助函数，也映射到 data
 	},
 	watch: {	// 观察属性，跟踪实例中特定值的变化，并做出反应
 		currterPage(newVal, oldVal){	// 监听vuex数据 currterPage
 			localStorage.setItem("currterPage", newVal);	// 设置到本地储存 localStorage
+		}
+	},
+	filters: {	// 过滤器 - 本质是一个有参数，有返回值的方法
+		indexFilter(val) {
+			return parseFloat(val) + 1;
 		}
 	}
 }

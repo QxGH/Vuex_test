@@ -53,7 +53,9 @@ const store = new Vuex.Store({
         ]
     },
     getters: {  // Vuex 过滤数据的一些方法
-        
+        // onlyOneTip(state) {  // 取当前只有1个 tip 的数据
+        //     return state.pageData.filter(item => item.tips.length == 1);
+        // }
     },
     mutations: {    // Vuex 同步改变数据方法的集合
         CURRTER_PAGE_UPDATA(state, val) {
