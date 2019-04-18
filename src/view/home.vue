@@ -5,16 +5,14 @@
 			<myProgress></myProgress>
 			<div class="view" ref="view" @click="jump">
 				<!-- 容器 -->
-				<div class="unit" v-for="(item, index) in pageData" v-show="index+1 == currterPage">
+				<div class="unit" v-for="(item, index) in pageData" v-show="index == currterPage">
 					<!-- Tips组件 -->
 					<myTips>
-						<h3 v-for="(tipsItem, tipsIndex) in item.tips">
-							{{tipsItem}}	 
-						</h3>
+						<div v-for="(tipsItem, tipsIndex) in item.tips" v-show="show_tips_index == tipsIndex">{{tipsItem}}</div>
 					</myTips>
-					<div >
-						<h2>{{item.title}}</h2>
-						<p>{{item.content}}</p>
+					<div class="content">
+						<h2 class="title">{{item.title}}</h2>
+						<div v-html="item.content"></div>
 					</div>
 				</div>
 			</div>
@@ -32,7 +30,7 @@ export default {
 	name: 'Home',
 	data () {
 		return {
-			
+			show_tips_index: 0
 		}
 	},
 	created () {	// 实例创建完成，DOM还未生成时执行
@@ -46,27 +44,34 @@ export default {
 	methods: {	// function
 		// mapMutations 是 Vuex mutations 的辅助函数, mapMutations 通过扩展运算符 ... 将 $store.commit 映射到 methods,可以在当前实例中调用
 		...mapMutations(['CURRTER_PAGE_UPDATA', 'CURRTER_PAGE_ADD', "CURRTER_PAGE_REDUCE"]),	
-		currterPageUpdata(val) {
+		currterPageUpdata(val) {	// 赋值修改当前页
 			this.CURRTER_PAGE_UPDATA(val);
 		},
-		currterPageAdd() {
-			this.CURRTER_PAGE_ADD();
+		currterPageNext() {	// 下一页
+			var tips_length = this.pageData[this.currterPage].tips.length;	// 获取当前 tips 数量
+			if(this.show_tips_index < tips_length-1) {	// 如果还有 tips 则显示下一个 tips
+				this.show_tips_index++;
+			} else {									// 如果后续没有 tips 则显示下一页 并重置 tips_index
+				this.CURRTER_PAGE_ADD();
+				this.show_tips_index = 0;	// 重置 tips_index
+			}
 		},
-		currterPageReduce() {
+		currterPagePrev() {	// 上一页
 			this.CURRTER_PAGE_REDUCE();
+			this.show_tips_index = 0;	// 重置 tips_index
 		},
 		jump(e) {	// 点击事件
 			// var self = this;
 			let pageX = e.pageX;	// 鼠标指针在X轴的位置
 			let left = this.$refs.home.offsetLeft - 840/2 + 73; 	// view界面距离浏览器左侧距离
 			let flag = this.$refs.view.offsetWidth / 2;				// view界面中心分割线位置
-			if(pageX - left >= flag && this.currterPage < this.pageCount) {	// 判断点击的是左侧还是右侧，并且 currterPage 大于1小于 pageCount 时才执行
-				this.currterPageAdd();		//点击右侧，currterPage + 1
-			} else if(pageX - left < flag && this.currterPage > 1) {
-				this.currterPageReduce();		// 点击左侧，currterPage - 1
+			if(pageX - left >= flag && this.currterPage < this.pageData.length-1) {	// 判断点击的是左侧还是右侧，并且 currterPage 大于1小于 pageData.length 时才执行
+				this.currterPageNext();		//点击右侧，currterPage + 1
+			} else if(pageX - left < flag && this.currterPage > 0) {
+				this.currterPagePrev();		// 点击左侧，currterPage - 1
 			} else {
-				this.$message({
-					message: '到尽头了！',
+				this.$message({	// Element-UI 提示框
+					message: '已经到尽头了！',
 					type: 'warning'
 				});
 			}
@@ -76,7 +81,7 @@ export default {
 		myTips
   	},
 	computed: {	// 计算属性,类似于 methods，定义一些方法，完成各种数据运算并缓存，只要其中任意数据变化，则重新执行运算
-		...mapState(['currterPage', 'pageCount', 'pageData'])	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到当前实例的 data，在页面里可以直接使用 {{currterPage}}。
+		...mapState(['currterPage', 'pageData'])	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到当前实例的 data，在页面里可以直接使用 {{currterPage}}。
 	},
 	watch: {	// 观察属性，跟踪实例中特定值的变化，并做出反应
 		currterPage(newVal, oldVal){	// 监听vuex数据 currterPage

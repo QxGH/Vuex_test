@@ -1,6 +1,6 @@
 <template>
 	<div class="progress-bar">
-		<el-progress :text-inside="true" :stroke-width="12" :percentage="percentage"></el-progress>
+		<el-progress :text-inside="true" :stroke-width="12" :percentage="percentage" status="exception"></el-progress>
 	</div>
 </template>
 
@@ -14,15 +14,20 @@ export default {
 			percentage: 0
 		}
 	},
+	methods: {
+		numFilter (val) { 
+			return parseFloat(val.toFixed(2));
+		}
+	},
 	created() {
-		this.percentage = (parseFloat(this.currterPage)-1) / (this.pageCount-1) *100;	// 进度百分比 - 从 0% 开始
+		this.percentage = this.numFilter(this.currterPage / (this.pageData.length-1) * 100);	// 进度百分比 - 从 0% 开始 保留两位小数
 	},
 	computed: {	// 计算属性,类似于 methods，定义一些方法，完成各种数据运算并缓存，只要其中任意数据变化，则重新执行运算
-		...mapState(['currterPage', 'pageCount'])	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到 this.currterPage，this指向的是当前 Vue 实例；在页面里可以直接使用 {{currterPage}}。
+		...mapState(['currterPage', "pageData"])	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到 this.currterPage，this指向的是当前 Vue 实例；在页面里可以直接使用 {{currterPage}}。
 	},
 	watch: {	// 观察属性，跟踪实例中特定值的变化，并做出反应
 		currterPage(newVal, oldVal){	// 监听vuex数据 currterPage
-			this.percentage = (newVal - 1) / (this.pageCount-1) *100
+			this.percentage = this.numFilter(newVal / (this.pageData.length-1) * 100);
 		}
 	}
 }

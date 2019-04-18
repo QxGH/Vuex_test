@@ -44,7 +44,7 @@ html, body, #app {
 .view {
     height: 100%;
     border: 1px solid #999;
-    padding: 20px;
+    padding: 10px;
 }
 .view .unit {
     position: relative;
@@ -53,9 +53,108 @@ html, body, #app {
 }
 .tips {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #eee;
-    width: 100px;
-    height: 80px;
+    top: 45px;
+    right: -5px;
+    width: 150px;
+    height: auto;
+}
+.tips-header {
+    width: 100%;
+    height: 42px;
+    background-image: url("../img/tips_header_bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 20px 10px 0;
+}
+.tips-body {
+    width: 100%;
+    height: auto;
+    background-image: url("../img/tips_body_bg.png");
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    padding: 0 10px 5px;
+    font-size: 14px;
+    color: #7f8c8d;
+    max-height: 350px;
+    word-break: break-all;
+}
+.tips-footer {
+    width: 100%;
+    height: 35px;
+    background-image: url("../img/tips_footer_bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.tips-title {
+    font-size: 16px;
+    position: relative;
+    padding-left: 23px;
+    line-height: 18px;
+}
+.tips-title::before {
+    content: "!";
+    background-color: #f66;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-weight: bold;
+    font-family: "Dosis", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+.content {
+    padding-right: 160px;
+    overflow: auto;
+    max-height: 100%;
+}
+h2, h3, strong {
+    font-weight: 600;
+    color: #2c3e50;
+}
+.title {
+    font-size: 24px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.content p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 26px;
+    color: #34495e;
+    text-indent: 32px;
+}
+.content a {
+    color: #e96900;
+    font-weight: 600;
+    text-decoration: none;
+}
+.content a:hover {
+    text-decoration: underline;
+}
+code, pre {
+    font-family: "Roboto Mono", Monaco, courier, monospace;
+    font-size: 0.8em;
+    background-color: #f8f8f8;
+    -webkit-font-smoothing: initial;
+    -moz-osx-font-smoothing: initial;
+    white-space: pre;
+}
+code {
+    color: #e96900;
+    padding: 3px 5px;
+    margin: 0 2px;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+pre {
+    border-radius: 2px;
+    display: block;
+    font-family: monospace;
+    margin: 10px 0;
 }
