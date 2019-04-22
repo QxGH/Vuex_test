@@ -13,8 +13,8 @@ const store = new Vuex.Store({
                     '官方指南假设你已了解关于 HTML、CSS 和 JavaScript 的中级知识。如果你刚开始学习前端开发，将框架作为你的第一步可能不是最好的主意——掌握好基础知识再来吧！之前有其它框架的使用经验会有帮助，但这不是必需的。'
                 ],
                 'img': require('../assets/img/start.gif')
-                // assets 文件夹：在项目编译的过程中会被webpack处理解析为模块依赖，只支持相对路径的形式。
-                // static 文件夹：在这个目录下文件不会被webpack处理,简单就是说存放第三方文件的地方，不会被webpack解析。
+                // assets 文件夹：在项目编译的过程中会被webpack处理解析为模块依赖，只支持相对路径的形式。解决方法：require()
+                // static 文件夹：在这个目录下文件不会被webpack处理,简单就是说存放第三方文件的地方，不会被webpack解析。会直接被复制到最终的打包目录(默认是dist/static)下
                 // https://blog.csdn.net/mr_yanyan/article/details/78783091
             },{
                 'title': '声明式渲染',

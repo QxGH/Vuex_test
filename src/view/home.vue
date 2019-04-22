@@ -12,8 +12,10 @@
 					</myTips>
 					<!-- 内容 -->
 					<div class="content">
-						<h2 class="title">{{currterPage | indexFilter}}. {{item.title}}</h2>
-						<div v-html="item.content"></div>
+						<h2 class="title">
+							<span class="inline-block animated flipInX">{{currterPage | indexFilter}}. {{item.title}}</span>
+						</h2>
+						<div class="animated bounceInLeft" v-html="item.content"></div>
 						<img class="img" v-if="item.img" :src="item.img" >
 						<video v-if="currterPage == pageData.length-1" controls="controls" autoplay width="500" src="http://ykugc.cp31.ott.cibntv.net/67731068B964371B341DA2CEA/03000801005A5363DACB5F514325B374AA7AD2-A907-FA33-56CC-816DF163E3B6.mp4?ccode=0512&duration=344&expire=18000&psid=3c8fad2464932356872cb3403684d677&ups_client_netip=242fa021&ups_ts=1555910098&ups_userid=&utid=gQpEFXWQAzECAXGM%2BBDGfcRL&vid=XMzMwMTYyODMyNA&vkey=A2f5adb185bb3a2c99fbe95bef6159dd7&sp="></video>
 					</div>

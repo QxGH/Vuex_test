@@ -163,3 +163,6 @@ pre {
     font-family: monospace;
     margin: 10px 0;
 }
+.inline-block {
+    display: inline-block;
+}

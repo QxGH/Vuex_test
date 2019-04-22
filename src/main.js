@@ -12,6 +12,9 @@ Vue.use(Progress);
 // Vue.use(Message);
 Vue.prototype.$message = Message;
 
+/* 引入 */
+import animate from 'animate.css';
+
 /* 引入vuex */
 import store from '@/store';
 
