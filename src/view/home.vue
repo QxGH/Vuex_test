@@ -2,13 +2,16 @@
 	<div class="home" ref="home">
 		<div class="main">
 			<!-- 进度条组件 -->
-			<myProgress></myProgress>
+			<!-- <myProgress></myProgress> -->
+			<div class="progress-bar">
+				<el-progress :text-inside="true" :stroke-width="12" :percentage="percentage" status="exception"></el-progress>
+			</div>
 			<div class="view" ref="view" @click="toggle($event)">
 				<!-- 容器 -->
 				<div class="unit" v-for="(item, index) in pageData" v-show="index == currterPage">
 					<!-- Tips组件 -->
 					<myTips>
-						<div v-for="(tipsItem, tipsIndex) in item.tips" v-show="show_tips_index == tipsIndex">{{tipsItem}}</div>
+						<div v-for="(tipsItem, tipsIndex) in item.tips" v-show="current_tips_index == tipsIndex">{{tipsItem}}</div>
 					</myTips>
 					<!-- 内容 -->
 					<div class="content">
@@ -17,7 +20,7 @@
 						</h2>
 						<div class="animated bounceInLeft" v-html="item.content"></div>
 						<img class="img" v-if="item.img" :src="item.img" >
-						<video v-if="currterPage == pageData.length-1" controls="controls" autoplay width="500" src="http://ykugc.cp31.ott.cibntv.net/67731068B964371B341DA2CEA/03000801005A5363DACB5F514325B374AA7AD2-A907-FA33-56CC-816DF163E3B6.mp4?ccode=0512&duration=344&expire=18000&psid=3c8fad2464932356872cb3403684d677&ups_client_netip=242fa021&ups_ts=1555910098&ups_userid=&utid=gQpEFXWQAzECAXGM%2BBDGfcRL&vid=XMzMwMTYyODMyNA&vkey=A2f5adb185bb3a2c99fbe95bef6159dd7&sp="></video>
+						<video v-if="currterPage == pageData.length-1" controls="controls" preload muted width="500" src="http://ykugc.cp31.ott.cibntv.net/67731068B964371B341DA2CEA/03000801005A5363DACB5F514325B374AA7AD2-A907-FA33-56CC-816DF163E3B6.mp4?ccode=0512&duration=344&expire=18000&psid=3c8fad2464932356872cb3403684d677&ups_client_netip=242fa021&ups_ts=1555910098&ups_userid=&utid=gQpEFXWQAzECAXGM%2BBDGfcRL&vid=XMzMwMTYyODMyNA&vkey=A2f5adb185bb3a2c99fbe95bef6159dd7&sp="></video>
 					</div>
 				</div>
 			</div>
@@ -26,17 +29,16 @@
 </template>
 
 <script>
-/* 组件引入 */
-import myTips from '@/components/Tips';
-/* Vuex 辅助函数 */
+
+/* 引入 Vuex 辅助函数 */
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
 	name: 'Home',
 	data () {
 		return {
-			show_tips_index: 0,
-			logoSrc: require('../assets/img/logo.png')
+			current_tips_index: 0,
+			percentage: 0
 		}
 	},
 	created () {	// 实例创建完成，DOM还未生成时执行
@@ -46,6 +48,7 @@ export default {
 		} else {
 			localStorage.setItem("currterPage", this.$store.state.currterPage);	// 没有，则添加本地储存
 		};
+		this.percentage = this.numFilter(this.currterPage / (this.pageData.length-1) * 100);	// 进度百分比 - 从 0% 开始 保留两位小数
 	},
 	methods: {	// function
 		// mapMutations 是 Vuex mutations 的辅助函数, mapMutations 通过扩展运算符 ... 将 $store.commit 映射到 methods,可以在当前实例中调用
@@ -54,17 +57,17 @@ export default {
 			this.CURRTER_PAGE_UPDATA(val);
 		},
 		currterPageNext() {	// 下一页
-			let tips_length = this.pageData[this.currterPage].tips.length;	// 获取当前 tips 数量
-			if(this.show_tips_index < tips_length-1) {	// 如果还有 tips 则显示下一个 tips
-				this.show_tips_index++;
+			let tips_length = this.pageData[this.currterPage].tips.length;	// 获取当前页 tips 数量
+			if(this.current_tips_index < tips_length-1) {	// 如果还有 tips 则显示下一个 tips
+				this.current_tips_index++;
 			} else {									// 如果后续没有 tips 则显示下一页 并重置 tips_index
 				this.CURRTER_PAGE_ADD();
-				this.show_tips_index = 0;	// 重置 tips_index
+				this.current_tips_index = 0;	// 重置 tips_index
 			}
 		},
 		currterPagePrev() {	// 上一页
 			this.CURRTER_PAGE_REDUCE();
-			this.show_tips_index = 0;	// 重置 tips_index
+			this.current_tips_index = 0;	// 重置 tips_index
 		},
 		toggle(e) {	// 点击事件
 			// const self = this;
@@ -81,18 +84,20 @@ export default {
 					type: 'warning'
 				});
 			}
+		},
+		numFilter (val) { // 保留两位小数
+			return parseFloat(val.toFixed(2));
 		}
 	},
-	components: {	// 组件-局部注册
-		myTips
-  	},
 	computed: {	// 计算属性,类似于 methods，定义一些方法，完成各种数据运算并缓存，只要其中任意数据变化，则重新执行运算
-		...mapState(['currterPage', 'pageData']),	// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state.currterPage 映射到当前实例的 data，在页面里可以直接使用 {{currterPage}}。
+		// mapState 是 Vuex state 的辅助函数，mapState通过扩展运算符(...)将 store.state 映射到当前实例的 data，在页面里可以直接使用: {{currterPage}} 。
+		...mapState(['currterPage', 'pageData']),	
 		// ...mapGetters(['onlyOneTip'])				// mapGetters 是 Vuex getters 的辅助函数，也映射到 data
 	},
 	watch: {	// 观察属性，跟踪实例中特定值的变化，并做出反应
 		currterPage(newVal, oldVal){	// 监听vuex数据 currterPage
-			localStorage.setItem("currterPage", newVal);	// 设置到本地储存 localStorage
+			localStorage.setItem("currterPage", newVal);	// 更新到本地储存 localStorage
+			this.percentage = this.numFilter(newVal / (this.pageData.length-1) * 100); // 更新进度条 percentage
 		}
 	},
 	filters: {	// 过滤器 - 本质是一个有参数，有返回值的方法
@@ -103,6 +108,13 @@ export default {
 }
 </script>
 
-<style>
-
+<!-- 当一个style标签拥有 scoped 属性时，它的 CSS 样式就只能作用于当前的组件 -->
+<style scoped>
+	.progress-bar {
+		font-size: 0;
+	}
+	.el-progress-bar__innerText {
+		vertical-align: top;
+		font-size: 12px;
+	}
 </style>

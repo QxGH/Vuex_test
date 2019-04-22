@@ -5,9 +5,11 @@
 }
 html, body, #app {
     height: 100%;
-    background: #fff;
+}
+body {
+    background: #eee;
     font-size: 14px;
-    font-family: "微软雅黑", "Microsoft YaHei";
+    font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
     color: #333;
 }
 #app {
@@ -156,12 +158,6 @@ code {
     margin: 0 2px;
     border-radius: 2px;
     white-space: nowrap;
-}
-pre {
-    border-radius: 2px;
-    display: block;
-    font-family: monospace;
-    margin: 10px 0;
 }
 .inline-block {
     display: inline-block;

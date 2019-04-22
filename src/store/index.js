@@ -13,15 +13,15 @@ const store = new Vuex.Store({
                     '官方指南假设你已了解关于 HTML、CSS 和 JavaScript 的中级知识。如果你刚开始学习前端开发，将框架作为你的第一步可能不是最好的主意——掌握好基础知识再来吧！之前有其它框架的使用经验会有帮助，但这不是必需的。'
                 ],
                 'img': require('../assets/img/start.gif')
-                // assets 文件夹：在项目编译的过程中会被webpack处理解析为模块依赖，只支持相对路径的形式。解决方法：require()
-                // static 文件夹：在这个目录下文件不会被webpack处理,简单就是说存放第三方文件的地方，不会被webpack解析。会直接被复制到最终的打包目录(默认是dist/static)下
+                // assets 文件夹：在项目编译的过程中会被 webpack 处理解析为模块依赖，只支持相对路径的形式。解决方法：require()
+                // static 文件夹：不会被 webpack 处理,会直接被复制到最终的打包目录(默认是 dist/static)下
                 // https://blog.csdn.net/mr_yanyan/article/details/78783091
             },{
                 'title': '声明式渲染',
                 'content': `<p>我们已经成功创建了第一个Vue应用！看起来这跟渲染一个字符串模板非常类似，但是Vue在背后做了大量工作。现在数据和DOM已经被建立了关联，所有东西都是<strong>响应式的</strong>。我们要怎么确认呢？打开你的浏览器的JavaScript控制台(就在这个页面打开)，并修改<code>app.message</code>的值，你将看到上例相应地更新。</p><p>这里我们遇到了一点新东西。你看到的<code>v-bind</code>特性被称为<strong>指令</strong>。指令带有前缀<code>v-</code>，以表示它们是Vue提供的特殊特性。可能你已经猜到了，它们会在渲染的DOM上应用特殊的响应式行为。在这里，该指令的意思是：“将这个元素节点的<code>title</code>特性和Vue实例的<code>message</code>属性保持一致”。</p>`,
                 'tips': [
-                    '声明式渲染 ： 我们只需要告诉程序我们想要什么效果，其他的交给程序来做。',
-                    '命令式渲染 ： 命令我们的程序去做什么，程序就会跟着你的命令去一步一步执行。'
+                    '声明式渲染： 我们只需要告诉程序我们想要什么效果，其他的交给程序来做。',
+                    '命令式渲染： 命令我们的程序去做什么，程序就会跟着你的命令去一步一步执行。'
                 ],
                 'img': require('../assets/img/amazing.png')
             },{
@@ -43,13 +43,13 @@ const store = new Vuex.Store({
                 'img': require('../assets/img/duang.png')
             },{
                 'title': '组件化应用构建',
-                'content': `<p>组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用。仔细想想，几乎任意类型的应用界面都可以抽象为一个组件树：</p><p>在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。在 Vue 中注册组件很简单：</p><p>但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个 <a href="javascript:void(0);">prop</a>：</p><p>尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过 prop 接口与父单元进行了良好的解耦。我们现在可以进一步改进 <code>&lt;todo-item&gt;</code> 组件，提供更为复杂的模板和逻辑，而不会影响到父单元。</p>`,
+                'content': `<p>在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。在 Vue 中注册组件很简单：</p><p>但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个 <a href="javascript:void(0);">prop</a>：</p><p>尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过 prop 接口与父单元进行了良好的解耦。我们现在可以进一步改进 <code>&lt;todo-item&gt;</code> 组件，提供更为复杂的模板和逻辑，而不会影响到父单元。</p>`,
                 'tips': [
                     '组件（Component）是 Vue.js 最强大的功能之一。',
                     '组件可以扩展 HTML 元素，封装可重用的代码。',
                     '组件系统让我们可以用独立可复用的小组件来构建大型应用，几乎任意类型的应用的界面都可以抽象为一个组件树。',
                 ],
-                'img': ''
+                'img': require('../assets/img/likes.png')
             },{
                 'title': "Vue Devtools",
                 'content': `<p>在使用 Vue 时，我们推荐在你的浏览器上安装 <a href="javascript:;" target="_blank" rel="noopener">Vue Devtools</a>。它允许你在一个更友好的界面中审查和调试 Vue 应用。</p>`,
@@ -61,7 +61,7 @@ const store = new Vuex.Store({
         ]
     },
     getters: {  // Vuex 过滤数据的一些方法
-        // onlyOneTip(state) {  // 取当前只有1个 tip 的数据
+        // onlyOneTip(state) {  // 如：取当前只有1个 tip 的数据
         //     return state.pageData.filter(item => item.tips.length == 1);
         // }
     },
