@@ -45,6 +45,7 @@ html, body, #app {
     height: 100%;
     /* border: 1px solid rgba(237,237,237,.4); */
     padding: 10px;
+    overflow: auto;
 }
 .view .unit {
     position: relative;
@@ -52,9 +53,9 @@ html, body, #app {
     height: 100%;
 }
 .tips {
-    position: absolute;
-    top: 45px;
-    right: -5px;
+    position: fixed;
+    top: 100px;
+    right: 90px;
     width: 150px;
     height: auto;
 }
@@ -109,7 +110,6 @@ html, body, #app {
 }
 .content {
     padding-right: 160px;
-    overflow: auto;
     max-height: 100%;
 }
 h2, h3, strong {
@@ -136,6 +136,11 @@ h2, h3, strong {
 }
 .content a:hover {
     text-decoration: underline;
+}
+.content .img {
+    display: block;
+    max-width: 150px;
+    margin: 0 auto;
 }
 code, pre {
     font-family: "Roboto Mono", Monaco, courier, monospace;
